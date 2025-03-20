@@ -1,0 +1,6 @@
+{
+    "users":{
+        "dethliya73@gmail_com":{"email":"ritik@gmail.com","name":"ritik dethliya","password":123,"data":[{"buget":1000,"total":1000,"remain":0,"expence":[]}]},
+        "raju@gmail_com":{"email":"raju@gmail.com","name":"raju dethliya","password":123,"data":[{"buget":2000,"total":1000,"remain":1000,"expence":[]}]}
+    }
+}
