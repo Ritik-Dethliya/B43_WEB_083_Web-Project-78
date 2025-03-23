@@ -13,8 +13,13 @@ function App() {
   return (
     <div className="app">
       <Routes>
+      
+       <Route element={<PrivateRoute/>}>
        <Route path="/" element={<Home/>}/>
-        <Route path='/login' element={<EmailLinkLoginPage/>}/> 
+       </Route>
+       <Route path='/login' element={<EmailLinkLoginPage/>}/>
+       <Route path='/finshsignup' element={<FinishSignUp/>}/>
+       <Route path='test' element={<Home/>}/>
       </Routes>
       
         

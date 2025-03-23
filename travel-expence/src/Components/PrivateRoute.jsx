@@ -4,7 +4,8 @@ import { AuthContext } from "../ContextApi/AuthContext";
 
 function PrivateRoute() {
     const {isAuth}=useContext(AuthContext);
-   if(isAuth)return( <Outlet/>)
+    const emailFromStorage = window.localStorage.getItem('emailForSignIn');
+   if(emailFromStorage)return( <Outlet/>)
    return <Navigate to="/login"/>
    
 }
