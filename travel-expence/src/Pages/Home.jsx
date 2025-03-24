@@ -11,6 +11,7 @@ function Home() {
     const exenceValueref=useRef(null)
     const categoriref=useRef(null)
     const email=window.localStorage.getItem("emailForSignIn").replace(/\./g,"_")
+    console.log(email)
     const {expenses,setexpance,buget,total,remain,setremain,setTotal,setbuget}=useContext(DataContex)
 
     

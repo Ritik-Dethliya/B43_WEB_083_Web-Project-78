@@ -5,6 +5,8 @@ import EmailLinkLoginPage from './Pages/Emaillogin'
 import FinishSignUp from './Pages/FinishSignup'
 import { Route, Routes } from 'react-router-dom'
 import PrivateRoute from './Components/PrivateRoute'
+import BudgetPage from './Pages/AddBuget'
+import Navbar from './Components/Navbar'
 
 
 function App() {
@@ -12,8 +14,9 @@ function App() {
 
   return (
     <div className="app">
+      <Navbar/>
       <Routes>
-      
+      <Route path='/addbuget' element={<BudgetPage/>}/>
        <Route element={<PrivateRoute/>}>
        <Route path="/" element={<Home/>}/>
        </Route>

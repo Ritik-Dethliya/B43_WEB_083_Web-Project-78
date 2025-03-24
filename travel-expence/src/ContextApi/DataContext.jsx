@@ -7,7 +7,9 @@ export const DataContexProvider=({children})=>{
     const [buget,setbuget]=useState("")
     const [total,setTotal]=useState(0)
     const [remain,setremain]=useState(0)
-    const email=window.localStorage.getItem("emailForSignIn").replace(/\./g,"_")
+    let email=window.localStorage.getItem("emailForSignIn")
+    if(!email){email="ram@gamil_com"}
+    else{email.replace(/\./g,"_")}
     const getExpence=async()=>{
         try{
 

@@ -9,7 +9,7 @@ function AddExpence() {
     const categoriref=useRef("")
     const email=window.localStorage.getItem("emailForSignIn").replace(/\./g,"_")
     const {expenses,setexpance,buget,total,remain,setremain,setTotal,setbuget}=useContext(DataContex)
-    const [loding,setLoding]=useState(false)
+    const [loading,setLoding]=useState(false)
 
     async function checkUser(){
         try {  
@@ -61,6 +61,7 @@ function AddExpence() {
         let res=await axios.patch(`https://expence-tracker-49678-default-rtdb.firebaseio.com/users/${email}.json`,{data:userdata})
         let curdata=res.data.data
         //console.log(res.data)
+
         setexpance(res.data.data)
         if(buget==0){
             let realres= await axios.get(`https://expence-tracker-49678-default-rtdb.firebaseio.com/users/${email}.json`)
@@ -74,7 +75,9 @@ function AddExpence() {
             setTotal(totals)
             setremain(realres.data?.buget-totals)
             expenceNameref.current=""
+            setLoding(false)
             return 
+
         }
         
         //console.log(expenses)
@@ -89,47 +92,62 @@ function AddExpence() {
     }
 
     return ( 
-        <div className="addExpence bg-blue-50 mt-1 p-2  ">
-                <form
-                    onSubmit={handleSubmit} 
-                    className="p-1 bg-gray-400 flex flex-col justify-rigth items-center"
+        <div className="addExpence bg-blue-50 mt-2 p-4 rounded-lg shadow-md">
+            <form
+                onSubmit={handleSubmit}
+                className="bg-gray-100 p-4 flex flex-col items-center rounded-lg shadow-lg"
+            >
+                <h1 className="text-center text-2xl font-bold text-gray-800 mb-3">
+                Add Expense
+                </h1>
+
+            
+                <input
+                type="text"
+                ref={expenceNameref}
+                placeholder="Enter Expense Details"
+                className="p-3 w-full md:w-80 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 my-2 outline-none"
+                onChange={(e) => (expenceNameref.current = e.target.value)}
+                />
+
+            
+                <input
+                type="number"
+                ref={exenceValueref}
+                placeholder="Enter Expense Amount"
+                className="p-3 w-full md:w-80 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 my-2 outline-none"
+                onChange={(e) => (exenceValueref.current = e.target.value)}
+                />
+
+                
+                <select
+                name="type"
+                className="p-3 w-full md:w-80 font-bold border-2 border-green-600 text-gray-800 bg-white rounded-lg shadow-sm hover:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300 my-2"
+                onChange={(e) => (categoriref.current = e.target.value)}
                 >
-                    <h1 className="text-center text-2xl font-bold">Add Expence</h1>
-                    <input type="text" 
-                        ref={expenceNameref}
-                        placeholder="Enter Expance details" 
-                        className="p-2 b bg-white w-full my-1 rounded-lg"
-                        onChange={(e)=>expenceNameref.current=e.target.value}
-                    />
-                    <input 
-                        ref={exenceValueref}
-                        type="number" 
-                        placeholder="Enter Expance" 
-                        className="p-2 b bg-white w-full my-1 rounded-lg "
-                        onChange={(e)=>exenceValueref.current=e.target.value}
-                    />
-                    <select
-                        name="type"
-                        className="font-bold border-2 border-green-600 text-gray-800 my-2 w-full max-w-xs md:w-72 px-4 py-2 rounded-lg bg-white shadow-sm hover:border-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
-                        onChange={(e) => (categoriref.current = e.target.value)}
-                    >
-                        <option value="" className="text-gray-500">✨ Select Category ✨</option>
-                        <option value="utility" className="text-green-600 font-semibold">
-                            ✅ Utility
-                        </option>
-                        <option value="entertainment" className="text-red-600 font-semibold">
-                            🎭 Entertainment
-                        </option>
-                        <option value="bills" className="text-blue-600 font-semibold">
-                            💰 Bills
-                        </option>
-                    </select>
-                    <button disabled={loding} type="submit" 
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-xl md:w-72 w-40 p-2 transition-all duration-200 shadow-md disabled:bg-gray-400"
-                        >
-                        Add Expence</button>
-                </form>
+                <option value="" className="text-gray-500">✨ Select Category ✨</option>
+                <option value="utility" className="text-green-600 font-semibold">
+                    ✅ Utility
+                </option>
+                <option value="entertainment" className="text-red-600 font-semibold">
+                    🎭 Entertainment
+                </option>
+                <option value="bills" className="text-blue-600 font-semibold">
+                    💰 Bills
+                </option>
+                </select>
+
+                
+                <button
+                disabled={loading}
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg w-full md:w-80 py-3 transition-all duration-200 shadow-md disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
+                Add Expense
+                </button>
+            </form>
             </div>
+
      );
 }
 
